@@ -1,53 +1,24 @@
 <?php
 session_start();
+require_once 'classes/autoload.php';
+$config = NULL;
+$config = (object) parse_ini_file('classes/config.ini', true);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>Login form</title>
-<style>
-img
-{
-	display:none;
-}
-</style>
-<script src="http://www.google.com/jsapi"></script>
-<script>
-	google.load("jquery", "1");
-</script>
+<?php
+include 'includes/loginstyle.inc.php';
+include 'includes/jquery.inc.php';
+?>
 </head>
 <body>
-<img src="images/loading.gif" />
-<form>
-username: <input type="text" name="username" id="username" /><br />
-password: <input type="password" name="password" id="password" /><br />
-<input type="submit" value="Submit" />
-</form>
-<script>
-(function()
-{
-	$('input:text:visible:first').focus();  
-	$('form').submit(function()
-	{
-		thisForm = $(this);
-		thisUsername = thisForm.find('#username');
-		thisPassword = thisForm.find('#password');
-		thisForm.hide();
-		$('img').show();	
-		$.post('posthandler.class.php',
-		{
-			method:'login',
-			username:thisUsername.val(),
-			password:thisPassword.val()
-		}, function(data)
-		{
-			$('img').hide(),
-			thisForm.show(),			
-			window.location.replace(data)
-		});
-	return false;
-	});
-})();
-</script>
+<h1>Login</h1>
+<img src="<?php echo $config->IMAGE_LOC; ?>loading.gif" />
+<?php
+include 'includes/loginform.inc.php';
+include 'includes/loginscript.inc.php';
+?>
 </body>
 </html>

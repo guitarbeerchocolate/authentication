@@ -1,5 +1,5 @@
 <?php
-require_once 'classes/authenticate.class.php';
+require_once 'classes/autoload.php';
 class posthandler
 {
   private $postObject;  
