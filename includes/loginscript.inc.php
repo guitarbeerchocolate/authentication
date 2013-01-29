@@ -10,7 +10,7 @@
     thisPassword = thisForm.find('#password');
     thisForm.hide();
     $('img').show();  
-    $.post('posthandler.class.php',
+    $.post('httphandler.class.php',
     {
       method:'login',
       username:thisUsername.val(),
