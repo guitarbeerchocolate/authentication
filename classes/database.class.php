@@ -26,7 +26,10 @@ class database
 	function singleRow($q)
 	{
 		$result = $this->connection->query($q);
-		return $result->fetch_object();
+		if(!is_bool($result))
+		{
+			return $result->fetch_object();
+		}
 	}
 
 	function escape($s)
