@@ -5,18 +5,18 @@ class authenticate
   public $id;
   private $username;
   private $password;
-  private $db; 
+  private $db;
 
   function __construct()
   {
-    $this->db = new database;  
-  } 
+    $this->db = new database;
+  }
 
   function login($u, $p)
   {
-    $this->username = mysql_real_escape_string($u);    
-    $this->password = mysql_real_escape_string(md5($p));    
-    $q = "SELECT * FROM users WHERE username='{$this->username}' AND password='{$this->password}'";    
+    $this->username = $this->db->escape($u);
+    $this->password = $this->db->escape(md5($p));
+    $q = "SELECT * FROM users WHERE username='{$this->username}' AND password='{$this->password}'";
     $result = $this->db->singleRow($q);
     if($result->id)
     {
@@ -27,9 +27,9 @@ class authenticate
     }
     else
     {
-      $this->destroySession();   
+      $this->destroySession();
       return 'index.php';
-    }  
+    }
   }
 
   function logout()
@@ -39,7 +39,7 @@ class authenticate
 
   private function createSession()
   {
-    $_SESSION['AUTH_ID'] = $this->id;   
+    $_SESSION['AUTH_ID'] = $this->id;
     $_SESSION['AUTH_USERNAME'] = $this->username;
   }
 
@@ -47,9 +47,9 @@ class authenticate
   {
     unset($_SESSION['AUTH_ID']);
     unset($_SESSION['AUTH_USERNAME']);
-    session_destroy();    
+    session_destroy();
   }
-  
+
   function __destruct()
   {
 
